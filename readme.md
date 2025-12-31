@@ -87,7 +87,6 @@ No mouse. No keyboard. No touch.
 ```bash
 git clone https://github.com/your-username/neon-breaker.git
 cd neon-breaker
-```
 Then open index.html using Live Server or any local HTTP server
 (camera access requires http:// or https://).
 
