@@ -8,7 +8,7 @@ Players slice neon shapes using **hand gestures**, without mouse, keyboard, or t
 ## 🚀 Play Now (Live)
 
 🎮 **Live Demo (Sample):**  
-👉 https://neon-breaker.vercel.app
+👉 [https://neon-breaker.vercel.app](https://neon-breaker-one.vercel.app/)
 
 > ⚠️ Requires camera access  
 > 🖥 Best experienced on desktop Chrome / Edge  
