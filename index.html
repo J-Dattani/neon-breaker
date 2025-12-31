@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NEON BREAKER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- INTRO SCREEN -->
+  <div id="intro">
+    <h1 class="logo">NEON BREAKER</h1>
+    <p class="tagline">break the glow.</p>
+    <p class="gesture">✋ open palm to begin</p>
+  </div>
+  <div id="instructions-overlay">
+  <div id="instructions-box">
+    
+    <h2 class="rules-title">RULES & INSTRUCTIONS</h2>
+
+    <ul class="rules">
+      <li>☝️ Point finger to slice neon shapes</li>
+      <li>⚠️ Avoid danger shapes — penalty</li>
+      <li>🎯 Faster & smaller shapes give more score</li>
+      <li>✊ Make a fist to start gameplay</li>
+    </ul>
+
+    <hr />
+
+    <ul class="tips">
+      <li>📷 Clean your camera lens</li>
+      <li>💡 Use good lighting</li>
+      <li>🚫 Avoid reflections & clutter</li>
+      <li>🪑 Sit steady for best tracking</li>
+    </ul>
+
+<div id="gesture-ok">
+  <span id="hold-text">HOLD ☝️ TO CONTINUE</span>
+  <div id="hold-percent">0%</div>
+
+  <svg id="tap-ring" width="90" height="90">
+    <circle
+      cx="45"
+      cy="45"
+      r="34"
+      stroke="#00FFFF"
+      stroke-width="4"
+      fill="none"
+      stroke-dasharray="214"
+      stroke-dashoffset="214"
+    />
+  </svg>
+</div>
+
+
+
+  </div>
+</div>
+
+<div id="gameover-overlay" style="display:none;">
+  <div id="gameover-box">
+    <h2>GAME OVER</h2>
+    <p id="final-score">SCORE: 0</p>
+    <div class="restart-text">✊ Make a Fist to Restart</div>
+  </div>
+</div>
+<audio id="bgIdle" src="sounds/bg_idle.mp3" loop></audio>
+<audio id="startSound" src="sounds/start.mp3"></audio>
+
+
+  <!-- FIST HOLD INDICATOR -->
+<div id="fist-ring">
+  <svg width="80" height="80">
+    <circle cx="40" cy="40" r="34" />
+  </svg>
+</div>
+<div id="warning-container"></div>
+<div id="edge-flash"></div>
+
+<div id="impact"></div>
+
+  <!-- CAMERA FEED -->
+  <video id="camera" autoplay playsinline muted></video>
+  <!-- MediaPipe Hands -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+  <script src="handTracking.js"></script>
+  <script src="main.js"></script>
+<div id="finger-cursor"></div>
+<div id="ui">
+  <div id="score">SCORE: 0</div>
+  <div id="status">NO HAND</div>
+</div>
+
+<canvas id="slashCanvas"></canvas>
+
+</body>
+</html>

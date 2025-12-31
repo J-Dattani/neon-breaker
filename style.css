@@ -1,0 +1,358 @@
+/* ===================== RESET ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: #ffffff;
+}
+
+/* ===================== CAMERA & CANVAS ===================== */
+video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#slashCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ===================== INTRO ===================== */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  text-align: center;
+  transition: opacity 0.8s ease;
+}
+
+.logo {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  letter-spacing: 4px;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 30px #00ffff;
+  animation: glow 2s infinite alternate;
+}
+
+.tagline {
+  margin-top: 10px;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.gesture {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  animation: pulse 1.5s infinite;
+}
+
+/* ===================== UI (SCORE + STATUS) ===================== */
+#ui {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+#score {
+  display: none;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #00ffff;
+  text-shadow:
+    0 0 8px rgba(0,255,255,0.8),
+    0 0 16px rgba(0,255,255,0.6);
+}
+
+#status {
+  display: none;
+  font-size: 14px;
+  color: #00ffff;
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+/* ===================== FINGER CURSOR ===================== */
+#finger-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #00ffff;
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: none;
+  z-index: 9999;
+}
+
+/* ===================== INSTRUCTIONS OVERLAY ===================== */
+#instructions-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#instructions-box {
+  width: min(90%, 420px);
+  background: rgba(0, 20, 30, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  border: 2px solid #00ffff;
+  box-shadow:
+    0 0 20px rgba(0,255,255,0.6),
+    0 0 40px rgba(0,255,255,0.3);
+  color: #eaffff;
+  animation: popIn 0.35s ease;
+}
+
+.rules-title {
+  text-align: center;
+  color: #00ffff;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+#instructions-box ul {
+  list-style: none;
+}
+
+#instructions-box li {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+#instructions-box hr {
+  border: none;
+  border-top: 1px solid rgba(0,255,255,0.3);
+  margin: 14px 0;
+}
+
+#instructions-box .tips li {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* ===================== HOLD TO CONTINUE ===================== */
+#gesture-ok {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #00ffff;
+  color: #001a1f;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 18px rgba(0,255,255,0.8);
+  user-select: none;
+}
+#warning-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.warning-text {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, 0);
+  font-size: 28px;
+  font-weight: 800;
+  color: #ff0033;
+  text-shadow:
+    0 0 10px rgba(255,0,50,0.9),
+    0 0 25px rgba(255,0,50,0.7);
+  animation: warningFloat 1s ease-out forwards;
+}
+
+@keyframes warningFloat {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+}
+
+#gesture-ok span {
+  display: block;
+}
+
+#hold-percent {
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* SVG PROGRESS RING */
+#tap-ring {
+  position: absolute;
+  inset: -10px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#tap-ring circle {
+  fill: none;
+  stroke: #00ffff;
+  stroke-width: 4;
+  stroke-dasharray: 214;
+  stroke-dashoffset: 214;
+  filter: drop-shadow(0 0 10px #00ffff);
+}
+
+/* ===================== FIST RING ===================== */
+#fist-ring {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999;
+}
+
+#fist-ring circle {
+  fill: none;
+  stroke: #00ffff;
+  stroke-width: 4;
+  stroke-dasharray: 214;
+  stroke-dashoffset: 214;
+  filter: drop-shadow(0 0 10px #00ffff);
+}
+
+/* ===================== IMPACT FLASH ===================== */
+#impact {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(0,255,255,0.6), transparent 70%);
+  opacity: 0;
+  z-index: 9998;
+}
+
+#impact.active {
+  animation: impactFlash 0.18s ease-out;
+}
+
+#edge-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 9997;
+  box-shadow: inset 0 0 0 0 rgba(0,0,0,0);
+}
+
+#edge-flash.active {
+  animation: edgePulse 0.18s ease-out;
+}
+
+@keyframes edgePulse {
+  0% {
+    opacity: 0;
+    box-shadow: inset 0 0 0 0 var(--edge-color);
+  }
+  40% {
+    opacity: 1;
+    box-shadow: inset 0 0 40px 8px var(--edge-color);
+  }
+  100% {
+    opacity: 0;
+    box-shadow: inset 0 0 0 0 var(--edge-color);
+  }
+}
+
+#gameover-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+#gameover-box {
+  background: rgba(0,20,30,0.95);
+  padding: 32px;
+  border-radius: 18px;
+  text-align: center;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 40px rgba(0,255,255,0.7);
+}
+
+#gameover-box h2 {
+  font-size: 36px;
+  color: #ff3355;
+  text-shadow: 0 0 20px rgba(255,50,80,0.9);
+}
+
+#final-score {
+  margin-top: 16px;
+  font-size: 28px;
+  color: #00ffff;
+  text-shadow: 0 0 12px rgba(0,255,255,0.8);
+}
+
+.restart-text {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes glow {
+  from { text-shadow: 0 0 10px #00ffff; }
+  to { text-shadow: 0 0 40px #00ffff; }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes impactFlash {
+  0% { opacity: 0; transform: scale(0.85); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.2); }
+}
